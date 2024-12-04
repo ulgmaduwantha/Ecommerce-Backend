@@ -1,9 +1,19 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+
 
 const app = express();
 
 const mongoUrl = "mongodb+srv://admin:Ccs151075@cluster0.pcjhx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+
+mongoose.connect(mongoUrl,{})
+
+const connection = mongoose.connection;
+
+connection.once("open", ()=>{
+    console.log("Database Connected");
+})
 
 app.use(bodyParser.json())
 
@@ -30,7 +40,7 @@ app.post("/",
         console.log("This is a post request")
         res.json(
             {
-                "messege": "This is a post reply",
+                "messege": "Good morning " + req.body.name,
             }
         )
         
