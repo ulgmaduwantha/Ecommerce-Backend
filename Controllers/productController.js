@@ -22,6 +22,22 @@ export function getProducts(req,res){
 
 
 export function createProducts(req,res){
+
+    console.log(req.user)
+
+    if(req.user == null){
+        res.json({
+            messege : "you are not logged in"
+        })
+        return
+    }
+
+    if(req.user.type !=  "admin"){
+        res.json({
+            messege : "you are not admin"
+        })
+    }
+
     const newProduct = new Product(req.body)
     newProduct.save().then(()=>{
         res.json({
@@ -37,7 +53,7 @@ export function createProducts(req,res){
 
 
 export function deleteProduct(req,res){
-    Product.deleteOne({name : req.body.name}).then(
+    Product.deleteOne({name : req.params.name}).then(
         ()=>{
             res.json({
                 messege : "product deleted successfully"
@@ -50,6 +66,33 @@ export function deleteProduct(req,res){
             })
         }
     )
+}
+
+
+export function getProductByName(req, res) {
+    const name = req.params.name;
+
+    Product.find({ name : name }).then(
+        (productList) => {
+
+            if(productList.length == 0){
+                res.json({
+                    "messege" : "product not found"
+                })
+
+            }else{
+                res.json({
+                    list : productList
+                })
+            }
+        }
+    ).catch(
+        () => {
+            res.json({
+                message: "Error" // Corrected spelling
+            });
+        }    
+    );
 }
 
 export default productRouter;

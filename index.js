@@ -4,7 +4,8 @@ import mongoose from 'mongoose';
 import Customer from './Models/Customer.js';
 import customerRouter from './Routes/customerRouter.js';
 import productRouter from './Routes/productRouter.js';
-
+import userRouter from './Routes/userRouter.js';
+import jwt from 'jsonwebtoken';
 const app = express();
 
 const mongoUrl = "mongodb+srv://admin:Ccs151075@cluster0.pcjhx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
@@ -19,8 +20,28 @@ connection.once("open", ()=>{
 
 app.use(bodyParser.json())
 
+app.use(
+    (req,res,next)=>{
+        const token = req.header("Authorization")?.replace("Bearer ","")
+        console.log(token) 
+
+        if(token != null){
+            jwt.verify(token, "gfc-secret-key", (error,decoded)=>{
+
+                if(!error){
+                
+                    req.user = decoded
+                }
+            })
+        }
+
+        next()
+    }
+)
+
 app.use("/api/customers", customerRouter)
 app.use("/api/products", productRouter)
+app.use("/api/users", userRouter)
 
 app.get("/",
 

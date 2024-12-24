@@ -7,6 +7,6 @@ import mongoose from "mongoose";
 
 })
 
-const Customer = mongoose.model("customers",customerSchema)     // This code line shows the connection between our code and the database collection
+const Customer = mongoose.model("customers", customerSchema)     // This code line shows the connection between our code and the database collection
 
 export default Customer;
