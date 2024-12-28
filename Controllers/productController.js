@@ -36,6 +36,7 @@ export function createProducts(req,res){
         res.json({
             messege : "you are not admin"
         })
+        return
     }
 
     const newProduct = new Product(req.body)
@@ -89,7 +90,7 @@ export function getProductByName(req, res) {
     ).catch(
         () => {
             res.json({
-                message: "Error" // Corrected spelling
+                message: "Error" 
             });
         }    
     );
