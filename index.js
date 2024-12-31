@@ -29,7 +29,7 @@ app.use(
         console.log(token) 
 
         if(token != null){
-            jwt.verify(token, "gfc-secret-key", (error,decoded)=>{
+            jwt.verify(token, process.env.SECRET_KEY , (error,decoded)=>{
 
                 if(!error){
                 

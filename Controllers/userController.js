@@ -1,6 +1,9 @@
 import User from "../Models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config()
 
 export function createUser(req,res){
 
@@ -43,7 +46,7 @@ export function loginUser(req, res) {
                     isBlocked : user.isBlocked,
                     type : user.type,
                     image : user.image
-                }, "gfc-secret-key")
+                }, process.env.SECRET_KEY)
                 res.json({
                     messege : "user logged in",
                     token : token
