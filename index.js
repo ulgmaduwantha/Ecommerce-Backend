@@ -3,7 +3,6 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import Customer from './Models/Customer.js';
 import customerRouter from './Routes/customerRouter.js';
-import productRouter from './Routes/productRouter.js';
 import userRouter from './Routes/userRouter.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
@@ -43,7 +42,6 @@ app.use(
 )
 
 app.use("/api/customers", customerRouter)
-app.use("/api/products", productRouter)
 app.use("/api/users", userRouter)
 
 app.get("/",
