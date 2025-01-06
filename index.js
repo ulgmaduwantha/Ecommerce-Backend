@@ -6,6 +6,8 @@ import customerRouter from './Routes/customerRouter.js';
 import userRouter from './Routes/userRouter.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import productRouter from './Routes/productRouter.js';
+import orderRouter from './Routes/oderRouter.js';
 dotenv.config()
 
 const app = express();
@@ -43,6 +45,8 @@ app.use(
 
 app.use("/api/customers", customerRouter)
 app.use("/api/users", userRouter)
+app.use("/api/products", productRouter)
+app.use("/api/orders", orderRouter)
 
 app.get("/",
 
