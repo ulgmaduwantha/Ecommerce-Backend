@@ -11,7 +11,8 @@ export async function createOrder(req,res){
         })
     }
     try{
-        const latestOrder = await Order.find().sort({date : -1}).limit(1)
+        const latestOrder = await Order.find().sort({Date : -1}).limit(1)
+        
 
     let orderId 
 
@@ -19,13 +20,12 @@ export async function createOrder(req,res){
         orderId = "GFC0001"
     }else{
         const currentOrderId = latestOrder[0].orderId
-
+        console.log(currentOrderId)
         const numberString = currentOrderId.replace("GFC","")
 
         const number = parseInt(numberString)
 
         const newNumber = (number + 1).toString().padStart(4 , "0");
-
         orderId = "GFC" + newNumber
     }
 
