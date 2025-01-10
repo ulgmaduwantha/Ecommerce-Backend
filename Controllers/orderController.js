@@ -1,5 +1,6 @@
 import Order from "../Models/Order.js";
 import {isCustomer} from "../Controllers/userController.js"
+import Product from "../Models/Product.js";
 
 export async function createOrder(req,res){
     
@@ -30,16 +31,46 @@ export async function createOrder(req,res){
     }
 
     const newOrderData = req.body
-    newOrderData.orderId = orderId
-    newOrderData.email = req.user.email
-    
-    const order = new Order(newOrderData)
-    
-    await order.save()
 
-    res.json({
-        message : "order created successfully"
-    })
+    const newProductArray = []
+
+    for(let i=0;i<newOrderData.orderedItems.length;i++){
+
+        const product = await Product.findOne({
+            productId : newOrderData.orderedItems[i].productId
+        })
+
+        if(product == null){
+            res.json({
+                message : "product with id "+newOrderData.orderedItems[i].productId+" not found"
+            })
+            return
+        }
+        
+        newProductArray[i] = {
+            name : product.productName,
+            price : product.price,
+            quantity : newOrderData.orderedItems[i].quantity,
+            Image : product.images[0]
+        }
+
+    }
+
+    console.log(newProductArray)
+
+    newOrderData.orderedItems = newProductArray
+
+
+    // newOrderData.orderId = orderId
+    // newOrderData.email = req.user.email
+    
+    // const order = new Order(newOrderData)
+    
+    // await order.save()
+
+    // res.json({
+    //     message : "order created successfully"
+    // })
     
     
     

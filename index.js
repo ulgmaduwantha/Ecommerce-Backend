@@ -7,7 +7,7 @@ import userRouter from './Routes/userRouter.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import productRouter from './Routes/productRouter.js';
-import orderRouter from './Routes/oderRouter.js';
+import orderRouter from './Routes/orderRouter.js';
 dotenv.config()
 
 const app = express();
