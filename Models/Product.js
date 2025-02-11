@@ -31,8 +31,13 @@ const productSchema = mongoose.Schema({
 
     lastPrice : {
         type : Number,
-        required : true,
+        required : true
 
+    },
+
+    stock : {
+        type : Number,
+        required : true
     },
 
     description : {
