@@ -32,3 +32,24 @@ export function getProducts(req,res){
         res.json(products)
     })
 }
+
+export function deleteProduct(req, res) {
+    if (!isAdmin(req)) {
+        res.json({
+            message: "You are not authorized to perform this action"
+        });
+        return;
+    }
+
+    const productId = req.params.productId;
+
+    Product.findByIdAndDelete(productId).then(() => {
+        res.json({
+            message: "Product deleted"
+        });
+    }).catch((error) => {
+        res.json({
+            message: error
+        });
+    });
+}
